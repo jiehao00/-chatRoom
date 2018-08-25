@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uptop.dao.UserDao">
+
+	<resultMap type="Users" id="UsersResult">
+		<result property="id" column="id"/>
+		<result property="name" column="userName"/>
+		<result property="password" column="password"/>
+		<result property="state" column="state"/>
+		<result property="imagesUrl" column="img"></result>
+	</resultMap>
+	<select id="login" parameterType="Users" resultMap="UsersResult">
+		select * from t_user where userName=#{name} and password=#{password}
+	</select>
+	<update id="updateByin" parameterType="String">
+		UPDATE  t_user SET state ='在线' where userName=#{name}
+	</update>
+	<update id="updateByout" parameterType="String">
+		UPDATE t_user SET state ='离线' where userName=#{name}
+	</update>
+	<select id="searchName" resultMap="UsersResult">
+		SELECT * FROM t_user
+	</select>
+	<insert id="insertUser" parameterType="Users">
+		INSERT INTO t_user(userName,password,state,img) VALUES (#{name},#{password},"离线",#{imagesUrl})
+	</insert>
+	<select id="exam" parameterType="Users" resultMap="UsersResult">
+		select * from t_user where userName=#{name}
+	</select>
+	<select id="seachImages" parameterType="String" resultType="String">
+		SELECT img FROM t_user WHERE userName=#{name}
+	</select>
+
+
+
+</mapper> 
